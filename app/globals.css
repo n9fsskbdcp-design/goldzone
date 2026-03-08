@@ -1,29 +1,21 @@
 @import "tailwindcss";
 
-/* Allow both light and dark color schemes */
+/* Disable automatic device dark mode */
+
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
-/* Default (light mode) */
-html {
-  background: #ffffff;
-}
+/* Base layout */
 
 body {
-  background: #ffffff;
-  color: #111827; /* Tailwind gray-900 */
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #111827;
 }
 
-/* Dark mode */
-@media (prefers-color-scheme: dark) {
-  html {
-    background: #020617; /* slate-950 */
-  }
+/* Force dark class behaviour only when explicitly used */
 
-  body {
-    background: #020617;
-    color: #f9fafb; /* near white */
-  }
+.dark body {
+  background-color: #111827;
+  color: #f9fafb;
 }

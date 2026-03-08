@@ -154,14 +154,7 @@ export default function Home() {
   </section>
 
 
-  {/* CTA */}
 
-  <Link
-  href="/sell"
-  className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-black transition"
-  >
-  Sell Gold Now
-  </Link>
 
   </div>
 
