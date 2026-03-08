@@ -1,19 +1,33 @@
 @import "tailwindcss";
 
-/* Disable automatic device dark mode */
+/* ------------------------------------------------ */
+/* Disable browser automatic dark mode              */
+/* ------------------------------------------------ */
 
 :root {
   color-scheme: light;
 }
 
-/* Base layout */
+/* Prevent Chrome / Android auto darkening */
+
+html {
+  color-scheme: light;
+  forced-color-adjust: none;
+}
+
+/* ------------------------------------------------ */
+/* Base site styling                                */
+/* ------------------------------------------------ */
 
 body {
   background-color: #ffffff;
   color: #111827;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Force dark class behaviour only when explicitly used */
+/* ------------------------------------------------ */
+/* Optional manual dark mode (only if you add it)   */
+/* ------------------------------------------------ */
 
 .dark body {
   background-color: #111827;
