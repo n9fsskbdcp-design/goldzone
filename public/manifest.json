@@ -1,0 +1,21 @@
+{
+  "name": "Goldzone758",
+  "short_name": "Goldzone758",
+  "description": "Sell gold in St Lucia with transparent pricing",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#111111",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
