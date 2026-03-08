@@ -154,23 +154,32 @@ export default function Home() {
   </section>
 
 
+{/* DESKTOP CTA */}
 
+<div className="hidden lg:block mt-8">
+  <Link
+    href="/sell"
+    className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-black transition"
+  >
+    Sell Your Gold
+  </Link>
+</div>
 
   </div>
 
 
-  {/* STICKY MOBILE CTA */}
+ {/* STICKY CTA FOR MOBILE + TABLET */}
 
-  <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-3 lg:hidden">
+<div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-3 lg:hidden">
 
   <Link
-  href="/sell"
-  className="block text-center bg-gray-900 text-white py-3 rounded-lg font-semibold"
+    href="/sell"
+    className="block text-center bg-gray-900 text-white py-3 rounded-lg font-semibold"
   >
-  Sell Your Gold
+    Sell Your Gold
   </Link>
 
-  </div>
+</div>
 
   </>
   )
