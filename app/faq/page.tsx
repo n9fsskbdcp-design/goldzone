@@ -17,7 +17,7 @@ export default function FAQ() {
           All items are weighed using calibrated scales and professionally
           tested to verify purity. Final payout is based on confirmed weight
           and karat after inspection. Learn more in our{" "}
-          <Link href="/gold-guide" className="underline hover:text-gray-800">
+          <Link href="/gold-guide" className="underline hover:text-gray-900">
             Gold Guide
           </Link>.
         </>
@@ -44,7 +44,7 @@ export default function FAQ() {
       answer: (
         <>
           The{" "}
-          <Link href="/calculator" className="underline hover:text-gray-800">
+          <Link href="/calculator" className="underline hover:text-gray-900">
             calculator
           </Link>{" "}
           provides an estimate based on our current buying rates. Final offers
@@ -64,7 +64,7 @@ export default function FAQ() {
           Karat (K) measures gold purity — not weight. 24K is nearly pure gold,
           while lower karats contain a higher percentage of strengthening
           metals. You can view hallmark numbers and purity breakdowns in our{" "}
-          <Link href="/gold-guide" className="underline hover:text-gray-800">
+          <Link href="/gold-guide" className="underline hover:text-gray-900">
             Gold Purity Guide
           </Link>.
         </>
@@ -75,7 +75,7 @@ export default function FAQ() {
       answer: (
         <>
           Yes. Higher quantities may qualify for improved buying rates. Our{" "}
-          <Link href="/calculator" className="underline hover:text-gray-800">
+          <Link href="/calculator" className="underline hover:text-gray-900">
             calculator
           </Link>{" "}
           automatically reflects volume-based adjustments.
@@ -100,16 +100,17 @@ export default function FAQ() {
   ];
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
+    <div className="max-w-3xl mx-auto px-4 py-10 text-gray-900">
 
       <div className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight mb-3">
           Frequently Asked Questions
         </h1>
-        <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+
+        <p className="text-gray-800 text-sm sm:text-base leading-relaxed">
           Clear answers about gold purity, pricing, and our evaluation process.
           For deeper educational information, visit our{" "}
-          <Link href="/gold-guide" className="underline hover:text-gray-800">
+          <Link href="/gold-guide" className="underline hover:text-gray-900">
             Gold Guide
           </Link>.
         </p>
@@ -129,13 +130,14 @@ export default function FAQ() {
                 className="w-full text-left px-5 py-4 flex justify-between items-center font-medium text-gray-900"
               >
                 {faq.question}
-                <span className="text-gray-500 text-xl">
+
+                <span className="text-gray-700 text-xl font-semibold">
                   {isOpen ? "−" : "+"}
                 </span>
               </button>
 
               {isOpen && (
-                <div className="px-5 pb-5 text-sm sm:text-base text-gray-600 leading-relaxed">
+                <div className="px-5 pb-5 text-sm sm:text-base text-gray-800 leading-relaxed">
                   {faq.answer}
                 </div>
               )}
@@ -145,11 +147,13 @@ export default function FAQ() {
       </div>
 
       <div className="mt-12 text-center space-y-4">
-        <p className="text-sm text-gray-600">
+
+        <p className="text-sm text-gray-800">
           Ready to check your gold value?
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
           <Link
             href="/calculator"
             className="bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition"
@@ -163,7 +167,9 @@ export default function FAQ() {
           >
             Sell Gold
           </Link>
+
         </div>
+
       </div>
 
     </div>

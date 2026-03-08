@@ -69,14 +69,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Allows browsers to correctly switch themes */}
+        <meta name="color-scheme" content="light dark" />
+      </head>
+
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-white text-gray-900 dark:bg-slate-950 dark:text-gray-100`}
       >
         <div className="flex min-h-screen">
 
           <Sidebar />
 
-          <main className="flex-1 p-6 pt-20 md:pt-6">
+          <main className="flex-1 p-6 pt-20 md:pt-6 bg-white dark:bg-slate-950">
             {children}
           </main>
 

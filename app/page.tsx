@@ -3,169 +3,182 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
-  const [prices, setPrices] = useState<Record<string, number>>({});
-  const [updatedAt, setUpdatedAt] = useState<string>("");
 
-  useEffect(() => {
-    fetch("/api/prices")
-      .then((res) => res.json())
-      .then((data) => {
-        setPrices(data.prices);
-        setUpdatedAt(data.updatedAt);
-      })
-      .catch(console.error);
-  }, []);
+  const [prices,setPrices] = useState<Record<string,number>>({})
+  const [updatedAt,setUpdatedAt] = useState("")
+  const [loading,setLoading] = useState(true)
+
+  useEffect(()=>{
+
+    const loadPrices = () => {
+      fetch("/api/prices")
+        .then(res=>res.json())
+        .then(data=>{
+          setPrices(data.prices)
+          setUpdatedAt(data.updatedAt)
+          setLoading(false)
+        })
+        .catch(console.error)
+    }
+
+    loadPrices()
+
+    const interval = setInterval(loadPrices,600000)
+
+    return ()=>clearInterval(interval)
+
+  },[])
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-8">
+  <>
+  <div className="max-w-xl mx-auto px-4 py-8 pb-24 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 rounded-xl">
 
-      {/* HERO */}
-      <section className="mb-6">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-3">
-          Sell Your Gold with Confidence
-        </h1>
+  {/* HERO */}
 
-        <p className="text-gray-600 text-sm sm:text-base">
-          Transparent pricing aligned with international gold market conditions.
-          Professional gold buying service in St Lucia.
-        </p>
-      </section>
+  <section className="mb-6">
 
-      {/* TRUST STRIP */}
-      <section className="grid grid-cols-2 gap-3 text-xs sm:text-sm text-gray-700 mb-8">
+  <h1 className="text-2xl sm:text-3xl font-bold mb-3">
+  Sell Your Gold with Confidence
+  </h1>
 
-        <div className="flex items-center gap-2">
-          <span>✓</span>
-          <span>Transparent pricing</span>
-        </div>
+  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
+  Live gold pricing aligned with international market conditions.
+  Professional gold buying service in St Lucia.
+  </p>
 
-        <div className="flex items-center gap-2">
-          <span>✓</span>
-          <span>Professional testing</span>
-        </div>
+  </section>
 
-        <div className="flex items-center gap-2">
-          <span>✓</span>
-          <span>No obligation to sell</span>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <span>✓</span>
-          <span>Serving St Lucia</span>
-        </div>
+  {/* TRUST STRIP */}
 
-      </section>
+  <section className="grid grid-cols-2 gap-3 text-xs sm:text-sm mb-8">
 
-      {/* GOLD PRICE TODAY */}
-      <section className="bg-gray-100 rounded-xl p-5 mb-6">
+  <div className="flex items-center gap-2">
+  ✓ Live market pricing
+  </div>
 
-        <h2 className="text-lg font-semibold mb-2">
-          Gold Price Today in St Lucia
-        </h2>
+  <div className="flex items-center gap-2">
+  ✓ Professional testing
+  </div>
 
-        <p className="text-sm text-gray-600">
-          Based on international gold spot prices.
-        </p>
+  <div className="flex items-center gap-2">
+  ✓ No obligation to sell
+  </div>
 
-        {prices["24"] && (
-          <p className="text-xl font-semibold mt-2">
-            {Number(prices["24"]).toFixed(2)} XCD / gram (24K)
-          </p>
-        )}
+  <div className="flex items-center gap-2">
+  ✓ Serving St Lucia
+  </div>
 
-        <p className="text-xs text-gray-500 mt-1">
-          Updated frequently based on global gold market conditions.
-        </p>
+  </section>
 
-      </section>
 
-      {/* CURRENT BUYING PRICES */}
-      <section className="bg-white rounded-xl shadow-sm p-5 space-y-3 mb-8">
+  {/* GOLD PRICE */}
 
-        <h2 className="text-lg font-semibold mb-2">
-          Current Buying Prices
-        </h2>
+  <section className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-5 mb-6 shadow-sm">
 
-        {Object.entries(prices).map(([karat, price]) => (
-          <div
-            key={karat}
-            className="flex justify-between items-center border-b last:border-b-0 py-2"
-          >
-            <span className="font-medium">{karat}K Gold</span>
+  <h2 className="text-lg font-semibold mb-2">
+  Gold Price Today
+  </h2>
 
-            <span className="font-semibold">
-              {Number(price).toFixed(2)} XCD / gram
-            </span>
-          </div>
-        ))}
+  <p className="text-sm text-gray-700 dark:text-gray-300">
+  Based on international gold spot prices
+  </p>
 
-        {updatedAt && (
-          <p className="text-xs text-gray-400 pt-2">
-            Last updated: {new Date(updatedAt).toLocaleString()}
-          </p>
-        )}
+  {loading ? (
+  <div className="h-7 w-40 mt-2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"/>
+  ) : (
+  <p className="text-xl font-semibold mt-2">
+  {Number(prices["24"]).toFixed(2)} XCD / gram (24K)
+  </p>
+  )}
 
-      </section>
+  {updatedAt && (
+  <p className="text-xs text-gray-500 mt-2">
+  Updated: {new Date(updatedAt).toLocaleString()}
+  </p>
+  )}
 
-      {/* HOW IT WORKS */}
-      <section className="mb-8">
+  </section>
 
-        <h2 className="text-lg font-semibold mb-4">
-          How It Works
-        </h2>
 
-        <div className="space-y-3 text-sm text-gray-600">
+  {/* BUYING PRICES */}
 
-          <p>
-            <strong>1.</strong> Estimate your payout using our{" "}
-            <Link href="/calculator" className="underline hover:text-gray-700">
-              gold calculator
-            </Link>.
-          </p>
+  <section className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5 space-y-3 mb-8 border border-gray-200 dark:border-gray-700">
 
-          <p>
-            <strong>2.</strong> Submit your gold for professional evaluation.
-          </p>
+  <h2 className="text-lg font-semibold">
+  Current Buying Prices
+  </h2>
 
-          <p>
-            <strong>3.</strong> Receive payment once weight and purity are verified.
-          </p>
+  {Object.entries(prices).map(([karat,price])=>(
+  <div key={karat} className="flex justify-between border-b border-gray-200 dark:border-gray-700 last:border-b-0 py-2">
 
-        </div>
+  <span className="font-medium">{karat}K Gold</span>
 
-      </section>
+  <span className="font-semibold">
+  {Number(price).toFixed(2)} XCD / gram
+  </span>
 
-      {/* CTA */}
-      <section className="mb-6">
+  </div>
+  ))}
 
-        <Link
-          href="/sell"
-          className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-gray-800 transition"
-        >
-          Sell Gold Now
-        </Link>
+  </section>
 
-      </section>
 
-      {/* EDUCATION LINKS */}
-      <section className="text-xs text-gray-500 space-y-1">
+  {/* HOW IT WORKS */}
 
-        <p>
-          Learn about gold purity in our{" "}
-          <Link href="/gold-guide" className="underline hover:text-gray-700">
-            Gold Guide
-          </Link>.
-        </p>
+  <section className="mb-8">
 
-        <p>
-          Have questions?{" "}
-          <Link href="/faq" className="underline hover:text-gray-700">
-            View FAQ
-          </Link>.
-        </p>
+  <h2 className="text-lg font-semibold mb-4">
+  How It Works
+  </h2>
 
-      </section>
+  <div className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
 
-    </div>
-  );
+  <p>
+  <strong>1.</strong> Estimate your payout using our{" "}
+  <Link href="/calculator" className="underline">
+  gold calculator
+  </Link>.
+  </p>
+
+  <p>
+  <strong>2.</strong> Submit your gold for evaluation.
+  </p>
+
+  <p>
+  <strong>3.</strong> Receive payment once weight and purity are verified.
+  </p>
+
+  </div>
+
+  </section>
+
+
+  {/* CTA */}
+
+  <Link
+  href="/sell"
+  className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-black transition"
+  >
+  Sell Gold Now
+  </Link>
+
+  </div>
+
+
+  {/* STICKY MOBILE CTA */}
+
+  <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-3 lg:hidden">
+
+  <Link
+  href="/sell"
+  className="block text-center bg-gray-900 text-white py-3 rounded-lg font-semibold"
+  >
+  Sell Your Gold
+  </Link>
+
+  </div>
+
+  </>
+  )
 }

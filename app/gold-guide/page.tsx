@@ -1,13 +1,14 @@
 export default function GoldGuide() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8 space-y-16">
+    <div className="max-w-4xl mx-auto px-4 py-8 space-y-16 text-gray-900">
 
       {/* HERO */}
       <section className="space-y-4">
         <h1 className="text-3xl sm:text-4xl font-bold">
           Gold Guide
         </h1>
-        <p className="text-gray-600 text-base sm:text-lg">
+
+        <p className="text-gray-800 text-base sm:text-lg">
           Learn how gold purity works, how to read hallmarks,
           and how professional evaluation determines value.
         </p>
@@ -20,13 +21,13 @@ export default function GoldGuide() {
           What Is Gold Purity?
         </h2>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           Gold purity is measured in karats (K). Pure gold is 24K.
           Lower karats contain a mixture of gold and other metals
           such as copper, silver, nickel, or zinc.
         </p>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           These metals increase strength and durability because
           pure gold is naturally soft.
         </p>
@@ -40,7 +41,8 @@ export default function GoldGuide() {
         </h2>
 
         <div className="overflow-x-auto bg-white rounded-2xl shadow-sm border border-gray-200">
-          <table className="min-w-full text-sm">
+          <table className="min-w-full text-sm text-gray-900">
+
             <thead className="bg-gray-50 border-b">
               <tr>
                 <th className="text-left px-4 py-3 font-semibold">Karat</th>
@@ -68,6 +70,7 @@ export default function GoldGuide() {
                 </tr>
               ))}
             </tbody>
+
           </table>
         </div>
       </section>
@@ -79,14 +82,14 @@ export default function GoldGuide() {
           Where to Find the Hallmark
         </h2>
 
-        <ul className="list-disc pl-6 text-gray-600 text-sm sm:text-base space-y-2">
+        <ul className="list-disc pl-6 text-gray-800 text-sm sm:text-base space-y-2">
           <li>Inside ring bands</li>
           <li>Near the clasp on chains and bracelets</li>
           <li>On small metal tags attached to jewellery</li>
           <li>On earring posts or backings</li>
         </ul>
 
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-700 text-sm">
           Some jewellery may not have a visible hallmark.
           Professional testing is often required to confirm purity.
         </p>
@@ -111,24 +114,24 @@ export default function GoldGuide() {
       </section>
 
 
-      {/* GOLD IS SOLD BY WEIGHT */}
+      {/* GOLD VALUE */}
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">
           Gold Is Valued by Weight
         </h2>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           The value of gold is determined by two main factors:
         </p>
 
-        <ul className="list-disc pl-6 text-gray-600 text-sm sm:text-base space-y-2">
+        <ul className="list-disc pl-6 text-gray-800 text-sm sm:text-base space-y-2">
           <li>Weight (grams)</li>
           <li>Purity (karat)</li>
         </ul>
 
-        <p className="text-gray-600 text-sm sm:text-base">
-          This means gold is effectively valued **by grams of pure gold
-          contained in the item**, regardless of the jewellery design.
+        <p className="text-gray-800 text-sm sm:text-base">
+          This means gold is effectively valued by the grams of pure gold
+          contained in the item, regardless of jewellery design.
         </p>
       </section>
 
@@ -139,14 +142,14 @@ export default function GoldGuide() {
           Does Broken Gold Still Have Value?
         </h2>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           Yes. Broken chains, single earrings, damaged rings, and scrap
           jewellery still contain gold.
         </p>
 
-        <p className="text-gray-600 text-sm sm:text-base">
-          Gold value is determined by **weight and purity**, not whether
-          the jewellery piece is complete.
+        <p className="text-gray-800 text-sm sm:text-base">
+          Gold value is determined by weight and purity,
+          not whether the jewellery piece is complete.
         </p>
       </section>
 
@@ -157,13 +160,13 @@ export default function GoldGuide() {
           Why Gold Comes in Different Colors
         </h2>
 
-        <ul className="list-disc pl-6 text-gray-600 text-sm sm:text-base space-y-2">
+        <ul className="list-disc pl-6 text-gray-800 text-sm sm:text-base space-y-2">
           <li>Rose gold contains more copper.</li>
           <li>White gold is mixed with nickel or palladium.</li>
           <li>Yellow gold contains silver and copper alloys.</li>
         </ul>
 
-        <p className="text-gray-600 text-sm">
+        <p className="text-gray-700 text-sm">
           Color does not determine value — purity does.
         </p>
       </section>
@@ -175,12 +178,12 @@ export default function GoldGuide() {
           How Gold Is Priced Globally
         </h2>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           Gold is traded internationally and priced in U.S. dollars
           per troy ounce (31.1035 grams).
         </p>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           Local buying rates are derived from the international
           spot price and adjusted for currency exchange and
           market conditions.
@@ -194,7 +197,7 @@ export default function GoldGuide() {
           Interesting Gold Facts
         </h2>
 
-        <ul className="list-disc pl-6 text-gray-600 text-sm sm:text-base space-y-2">
+        <ul className="list-disc pl-6 text-gray-800 text-sm sm:text-base space-y-2">
           <li>Gold melts at 1,064°C (1,947°F).</li>
           <li>Gold does not rust or corrode.</li>
           <li>Nearly all gold ever mined still exists today.</li>
@@ -206,6 +209,7 @@ export default function GoldGuide() {
 
       {/* CTA */}
       <section className="bg-gray-900 text-white p-8 rounded-2xl text-center space-y-4">
+
         <h2 className="text-2xl font-semibold">
           Ready to Check Your Gold?
         </h2>
@@ -232,6 +236,7 @@ export default function GoldGuide() {
           </a>
 
         </div>
+
       </section>
 
     </div>

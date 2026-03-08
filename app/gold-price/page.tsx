@@ -17,20 +17,23 @@ export default function GoldPrice() {
   }, []);
 
   return (
-    <div className="max-w-xl mx-auto px-4 py-8 space-y-8">
+    <div className="max-w-xl mx-auto px-4 py-8 space-y-8 text-gray-900">
 
+      {/* PAGE INTRO */}
       <section>
         <h1 className="text-2xl sm:text-3xl font-bold mb-3">
           Gold Price in St Lucia Today
         </h1>
 
-        <p className="text-gray-600 text-sm sm:text-base">
+        <p className="text-gray-800 text-sm sm:text-base">
           The gold prices below are derived from live international gold market
           prices and converted to Eastern Caribbean Dollars (XCD).
         </p>
       </section>
 
-      <section className="bg-white rounded-xl shadow-sm p-5 space-y-3">
+
+      {/* PRICE TABLE */}
+      <section className="bg-white rounded-xl shadow-sm p-5 space-y-3 border border-gray-200">
 
         <h2 className="text-lg font-semibold mb-2">
           Current Gold Prices (per gram)
@@ -41,42 +44,55 @@ export default function GoldPrice() {
             key={karat}
             className="flex justify-between border-b last:border-none py-2"
           >
-            <span>{karat}K Gold</span>
+            <span className="text-gray-900">
+              {karat}K Gold
+            </span>
 
-            <span className="font-semibold">
+            <span className="font-semibold text-gray-900">
               {Number(price).toFixed(2)} XCD
             </span>
           </div>
         ))}
 
         {updatedAt && (
-          <p className="text-xs text-gray-500 pt-2">
+          <p className="text-xs text-gray-700 pt-2">
             Last updated: {new Date(updatedAt).toLocaleString()}
           </p>
         )}
       </section>
 
-      <section className="text-sm text-gray-600 space-y-2">
+
+      {/* INFO */}
+      <section className="text-sm text-gray-800 space-y-3">
 
         <p>
-          Gold prices fluctuate based on international gold markets, currency
-          exchange rates, and local demand.
+          Gold prices fluctuate based on international gold markets,
+          currency exchange rates, and local demand.
         </p>
 
         <p>
-          If you are selling gold in St Lucia, the final payout depends on the
-          weight and purity of the gold after professional testing.
+          If you are selling gold in St Lucia, the final payout depends
+          on the weight and purity of the gold after professional testing.
         </p>
 
       </section>
 
-      <section className="pt-4">
+
+      {/* ACTION BUTTONS */}
+      <section className="pt-4 space-y-3">
 
         <Link
           href="/calculator"
           className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold hover:bg-gray-800 transition"
         >
           Use Gold Calculator
+        </Link>
+
+        <Link
+          href="/sell"
+          className="block text-center border border-gray-900 py-4 rounded-xl font-semibold hover:bg-gray-100 transition"
+        >
+          Sell Gold Now
         </Link>
 
       </section>
