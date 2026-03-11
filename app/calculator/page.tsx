@@ -16,6 +16,50 @@ const [tierLabel, setTierLabel] = useState<string>("");
 
 const [loading, setLoading] = useState(true);
 
+/* install support */
+
+const [showInstall,setShowInstall] = useState(false)
+const [deferredPrompt,setDeferredPrompt] = useState<any>(null)
+
+useEffect(()=>{
+
+const isStandalone =
+window.matchMedia("(display-mode: standalone)").matches ||
+(window.navigator as any).standalone === true
+
+if(!isStandalone){
+setShowInstall(true)
+}
+
+},[])
+
+useEffect(()=>{
+
+const handler = (e:any)=>{
+e.preventDefault()
+setDeferredPrompt(e)
+}
+
+window.addEventListener("beforeinstallprompt",handler)
+
+return ()=>window.removeEventListener("beforeinstallprompt",handler)
+
+},[])
+
+const handleInstall = async () => {
+
+if(!deferredPrompt) return
+
+deferredPrompt.prompt()
+
+await deferredPrompt.userChoice
+
+setDeferredPrompt(null)
+
+}
+
+/* load prices */
+
 useEffect(() => {
 fetch("/api/prices")
 .then((res) => res.json())
@@ -104,10 +148,7 @@ Estimate your payout using our current buying rates.
 
 <p className="text-sm text-gray-700 mb-6">
 Not sure about your karat?{" "}
-<Link
-href="/gold-guide"
-className="underline hover:text-black"
->
+<Link href="/gold-guide" className="underline hover:text-black">
 View our Gold Guide
 </Link>
 </p>
@@ -230,6 +271,46 @@ No obligation. Final offer confirmed after inspection.
 )}
 
 </div>
+
+
+{/* INSTALL APP */}
+
+{showInstall && (
+
+<div className="bg-white border border-gray-200 rounded-xl p-5 mt-6">
+
+<h2 className="text-lg font-semibold mb-2">
+Install Goldzone App
+</h2>
+
+<p className="text-sm text-gray-700 mb-4">
+Install the app for faster access to the calculator and gold selling service.
+</p>
+
+{deferredPrompt ? (
+
+<button
+onClick={handleInstall}
+className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition"
+>
+Install App
+</button>
+
+) : (
+
+<div className="text-sm text-gray-700 space-y-2">
+
+<p><strong>Android:</strong> Tap browser menu ⋮ → Add to Home Screen</p>
+
+<p><strong>iPhone:</strong> Tap Share → Add to Home Screen</p>
+
+</div>
+
+)}
+
+</div>
+
+)}
 
 </div>
 );

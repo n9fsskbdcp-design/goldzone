@@ -137,29 +137,6 @@ Install App
 )}
 
 
-  {/* TRUST STRIP */}
-
-  <section className="grid grid-cols-2 gap-3 text-xs sm:text-sm mb-8">
-
-  <div className="flex items-center gap-2">
-  ✓ Live market pricing
-  </div>
-
-  <div className="flex items-center gap-2">
-  ✓ Professional testing
-  </div>
-
-  <div className="flex items-center gap-2">
-  ✓ No obligation to sell
-  </div>
-
-  <div className="flex items-center gap-2">
-  ✓ Serving St Lucia
-  </div>
-
-  </section>
-
-
   {/* GOLD PRICE */}
 
   <section className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm">

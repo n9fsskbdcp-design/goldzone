@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import InstallFooterLink from "@/components/InstallFooterLink";
 import Link from "next/link";
 import "./globals.css";
 
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://goldzone758.vercel.app"),
+  metadataBase: new URL("https://goldzone758.com"),
 
   title: {
     default: "Goldzone758 | Sell Gold in St Lucia",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     title: "Goldzone758 | Sell Gold in St Lucia",
     description:
       "Transparent gold buying rates aligned with international gold prices. Estimate your gold value instantly.",
-    url: "https://goldzone758.vercel.app",
+    url: "https://goldzone758.com",
     siteName: "Goldzone758",
     locale: "en_US",
     type: "website",
@@ -80,9 +81,13 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen">
 
+          {/* Sidebar Navigation */}
+
           <Sidebar />
 
           <div className="flex flex-col flex-1">
+
+            {/* Page Content */}
 
             <main className="flex-1 p-6 pt-20 md:pt-6 bg-white">
               {children}
@@ -91,9 +96,12 @@ export default function RootLayout({
             {/* Footer */}
 
             <footer className="border-t border-gray-200 bg-white py-6">
-              <div className="max-w-4xl mx-auto px-4 text-sm text-gray-600 text-center space-y-3">
 
-                <div className="flex flex-wrap justify-center gap-4">
+              <div className="max-w-4xl mx-auto px-4 text-sm text-gray-600 text-center space-y-4">
+
+                {/* Footer Navigation */}
+
+                <div className="flex flex-wrap justify-center gap-5">
 
                   <Link href="/privacy" className="hover:underline">
                     Privacy Policy
@@ -107,18 +115,29 @@ export default function RootLayout({
                     Contact
                   </Link>
 
+                  {/* Hidden automatically when app is installed */}
+
+                  <InstallFooterLink />
+
                 </div>
 
-                <p className="text-xs text-gray-500">
-                  Goldzone provides professional gold evaluation services in St Lucia.
-                  Final offers are determined after inspection and purity testing.
+                {/* Trust Message */}
+
+                <p className="text-xs text-gray-500 max-w-xl mx-auto leading-relaxed">
+                  Goldzone provides professional gold evaluation services in
+                  St Lucia. Final offers are confirmed after weight and purity
+                  testing during inspection. There is no obligation to sell
+                  after evaluation.
                 </p>
 
+                {/* Copyright */}
+
                 <p className="text-xs text-gray-400">
-                  © {new Date().getFullYear()} Goldzone
+                  © {new Date().getFullYear()} Goldzone758
                 </p>
 
               </div>
+
             </footer>
 
           </div>
