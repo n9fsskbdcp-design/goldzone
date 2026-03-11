@@ -109,15 +109,15 @@ export default function SellGold() {
     let label = "Standard rate applied";
 
     if (numericWeight >= 100) {
-      multiplier = 1.15;
+      multiplier = 1.10;
       label = "Premium volume rate applied";
     } 
     else if (numericWeight >= 62) {
-      multiplier = 1.10;
+      multiplier = 1.05;
       label = "Improved volume rate applied";
     } 
     else if (numericWeight >= 31) {
-      multiplier = 1.05;
+      multiplier = 1.025;
       label = "Enhanced rate applied";
     }
 
@@ -261,6 +261,7 @@ Weight (grams)
 
 <input
 type="number"
+inputMode="decimal"
 value={weight}
 onChange={(e)=>{
 const value=e.target.value

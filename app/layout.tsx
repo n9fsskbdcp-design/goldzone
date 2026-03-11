@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -60,6 +61,11 @@ export const metadata: Metadata = {
   },
 
   manifest: "/manifest.json",
+
+  other: {
+    "color-scheme": "light",
+    "supported-color-schemes": "light",
+  },
 };
 
 export default function RootLayout({
@@ -69,19 +75,53 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        {/* Force browsers to use light theme only */}
-        <meta name="color-scheme" content="light" />
-      </head>
-
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
+      >
         <div className="flex min-h-screen">
 
           <Sidebar />
 
-          <main className="flex-1 p-6 pt-20 md:pt-6 bg-white">
-            {children}
-          </main>
+          <div className="flex flex-col flex-1">
+
+            <main className="flex-1 p-6 pt-20 md:pt-6 bg-white">
+              {children}
+            </main>
+
+            {/* Footer */}
+
+            <footer className="border-t border-gray-200 bg-white py-6">
+              <div className="max-w-4xl mx-auto px-4 text-sm text-gray-600 text-center space-y-3">
+
+                <div className="flex flex-wrap justify-center gap-4">
+
+                  <Link href="/privacy" className="hover:underline">
+                    Privacy Policy
+                  </Link>
+
+                  <Link href="/terms" className="hover:underline">
+                    Terms of Service
+                  </Link>
+
+                  <Link href="/contact" className="hover:underline">
+                    Contact
+                  </Link>
+
+                </div>
+
+                <p className="text-xs text-gray-500">
+                  Goldzone provides professional gold evaluation services in St Lucia.
+                  Final offers are determined after inspection and purity testing.
+                </p>
+
+                <p className="text-xs text-gray-400">
+                  © {new Date().getFullYear()} Goldzone
+                </p>
+
+              </div>
+            </footer>
+
+          </div>
 
         </div>
       </body>
