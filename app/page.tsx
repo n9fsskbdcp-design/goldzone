@@ -95,48 +95,6 @@ export default function Home() {
   </section>
 
 
-{/* INSTALL APP */}
-
-{showInstall && (
-
-<section className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
-
-<h2 className="text-lg font-semibold mb-2">
-Install Goldzone App
-</h2>
-
-<p className="text-sm text-gray-700 mb-4">
-Add Goldzone to your phone for quick access to the calculator and selling service.
-</p>
-
-{/* Android install */}
-
-{deferredPrompt ? (
-
-<button
-onClick={handleInstall}
-className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition"
->
-Install App
-</button>
-
-) : (
-
-<div className="space-y-2 text-sm text-gray-700">
-
-<p><strong>Android:</strong> Tap browser menu ⋮ → Add to Home Screen</p>
-
-<p><strong>iPhone:</strong> Tap Share → Add to Home Screen</p>
-
-</div>
-
-)}
-
-</section>
-
-)}
-
-
   {/* GOLD PRICE */}
 
   <section className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm">
@@ -219,32 +177,72 @@ Install App
   </section>
 
 
-{/* DESKTOP CTA */}
+  {/* INSTALL APP — MOVED TO BOTTOM */}
 
-<div className="hidden lg:block mt-8">
-  <Link
-    href="/sell"
-    className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-black transition"
+  {showInstall && (
+
+  <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
+
+  <h2 className="text-lg font-semibold mb-2">
+  Install Goldzone App
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-4">
+  Add Goldzone to your phone for quick access to the calculator and selling service.
+  </p>
+
+  {deferredPrompt ? (
+
+  <button
+  onClick={handleInstall}
+  className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition"
   >
-    Sell Your Gold
-  </Link>
-</div>
+  Install App
+  </button>
+
+  ) : (
+
+  <div className="space-y-2 text-sm text-gray-700">
+
+  <p><strong>Android:</strong> Tap browser menu ⋮ → Add to Home Screen</p>
+
+  <p><strong>iPhone:</strong> Tap Share → Add to Home Screen</p>
+
+  </div>
+
+  )}
+
+  </section>
+
+  )}
+
+
+  {/* DESKTOP CTA */}
+
+  <div className="hidden lg:block mt-8">
+    <Link
+      href="/sell"
+      className="block text-center bg-gray-900 text-white py-4 rounded-xl font-semibold text-lg hover:bg-black transition"
+    >
+      Sell Your Gold
+    </Link>
+  </div>
 
   </div>
 
 
- {/* STICKY CTA FOR MOBILE + TABLET */}
+  {/* STICKY CTA FOR MOBILE */}
 
-<div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 lg:hidden">
+  <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 lg:hidden">
 
   <Link
-    href="/sell"
-    className="block text-center bg-gray-900 text-white py-3 rounded-lg font-semibold"
+  href="/sell"
+  className="block text-center bg-gray-900 text-white py-3 rounded-lg font-semibold"
   >
-    Sell Gold
+  Sell Gold
   </Link>
 
-</div>
+  </div>
 
   </>
   )
