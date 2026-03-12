@@ -177,18 +177,18 @@ export default function Home() {
   </section>
 
 
-  {/* INSTALL APP — MOVED TO BOTTOM */}
+  {/* MOBILE INSTALL (above sticky CTA) */}
 
   {showInstall && (
 
-  <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6">
+  <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6 lg:hidden">
 
   <h2 className="text-lg font-semibold mb-2">
   Install Goldzone App
   </h2>
 
   <p className="text-sm text-gray-700 mb-4">
-  Add Goldzone to your phone for quick access to the calculator and selling service.
+  Save Goldzone on your phone for quick access to the calculator anytime.
   </p>
 
   {deferredPrompt ? (
@@ -227,6 +227,46 @@ export default function Home() {
       Sell Your Gold
     </Link>
   </div>
+
+
+  {/* DESKTOP INSTALL (below sell button) */}
+
+  {showInstall && (
+
+  <section className="hidden lg:block bg-gray-50 border border-gray-200 rounded-xl p-5 mt-6">
+
+  <h2 className="text-lg font-semibold mb-2">
+  Install Goldzone App
+  </h2>
+
+  <p className="text-sm text-gray-700 mb-4">
+  Save Goldzone on your phone for quick access to the calculator anytime.
+  </p>
+
+  {deferredPrompt ? (
+
+  <button
+  onClick={handleInstall}
+  className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-black transition"
+  >
+  Install App
+  </button>
+
+  ) : (
+
+  <div className="space-y-2 text-sm text-gray-700">
+
+  <p><strong>Android:</strong> Tap browser menu ⋮ → Add to Home Screen</p>
+
+  <p><strong>iPhone:</strong> Tap Share → Add to Home Screen</p>
+
+  </div>
+
+  )}
+
+  </section>
+
+  )}
 
   </div>
 
