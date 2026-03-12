@@ -42,28 +42,36 @@ export default function Contact() {
 
         <div className="space-y-6">
 
+          {/* Phone */}
           <div>
             <p className="text-xs uppercase tracking-wide text-gray-600 mb-1">
               Phone
             </p>
 
-            <p className="text-base font-medium text-gray-900">
+            <a
+              href="/sell"
+              className="text-base font-medium text-gray-900 hover:underline"
+            >
               +1 (758) XXX-XXXX
-            </p>
+            </a>
 
             <p className="text-sm text-gray-700 mt-1">
               For scheduled evaluations and confirmed selling inquiries.
             </p>
           </div>
 
+          {/* Email */}
           <div>
             <p className="text-xs uppercase tracking-wide text-gray-600 mb-1">
               Email
             </p>
 
-            <p className="text-base font-medium text-gray-900">
+            <a
+              href="mailto:info@goldzone758.com"
+              className="text-base font-medium text-gray-900 hover:underline"
+            >
               info@goldzone758.com
-            </p>
+            </a>
           </div>
 
         </div>
