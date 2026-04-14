@@ -5,7 +5,7 @@ import {
   calculateRevenueValue,
   type RevenuePrices,
   type RevenueCurrency,
-} from "@/lib/revenue-pricing";
+} from "@/lib/revenuePricing";
 
 type RevenuePricesResponse = {
   prices: RevenuePrices;
