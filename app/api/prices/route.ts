@@ -13,15 +13,21 @@ export async function GET() {
       });
     }
 
-    const response = await fetch("https://api.gold-api.com/price/XAU");
+    const response = await fetch("https://api.gold-api.com/price/XAU", {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch gold price");
+    }
+
     const data = await response.json();
 
     const spotPerOunceUsd = Number(data.price || 0);
     const gramsPerOunce = 31.1035;
     const usdToXcd = 2.67;
 
-    const spotPerGramXcd =
-      (spotPerOunceUsd / gramsPerOunce) * usdToXcd;
+    const spotPerGramXcd = (spotPerOunceUsd / gramsPerOunce) * usdToXcd;
 
     const margin = 0.5;
 
@@ -30,15 +36,13 @@ export async function GET() {
 
     karats.forEach((k) => {
       const purity = k / 24;
-
       const buyPrice = spotPerGramXcd * purity * (1 - margin);
-
       prices[k.toString()] = Number(buyPrice.toFixed(2));
     });
 
     const result = {
       prices,
-      updatedAt: new Date(),
+      updatedAt: new Date().toISOString(),
     };
 
     cachedData = result;
@@ -50,7 +54,10 @@ export async function GET() {
   } catch {
     return new Response(
       JSON.stringify({ error: "Failed to fetch gold price." }),
-      { status: 500 }
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
     );
   }
 }
