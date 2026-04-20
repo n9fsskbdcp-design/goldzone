@@ -4,7 +4,6 @@ import Sidebar from "@/components/Sidebar";
 import Link from "next/link";
 import "./globals.css";
 import InstallFooterLink from "@/components/InstallFooterLink";
-import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -80,8 +79,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-gray-900`}
       >
-        <ServiceWorkerRegister />
-
         <div className="flex min-h-screen">
           <Sidebar />
 
