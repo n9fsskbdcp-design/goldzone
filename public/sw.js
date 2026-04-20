@@ -1,6 +1,7 @@
-const CACHE_VERSION = "goldzone-v3";
+const CACHE_VERSION = "goldzone-v4";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
+const API_CACHE = `${CACHE_VERSION}-api`;
 
 const PRECACHE_URLS = [
   "/",
@@ -49,6 +50,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Never cache admin/auth/dashboard routes
   if (
     url.pathname.startsWith("/admin") ||
     url.pathname.startsWith("/buyer-dashboard") ||
@@ -59,6 +61,38 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Special handling for public gold prices API
+  if (url.pathname === "/api/prices") {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const responseClone = response.clone();
+            caches.open(API_CACHE).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return response;
+        })
+        .catch(async () => {
+          const cachedResponse = await caches.match(request);
+          if (cachedResponse) return cachedResponse;
+
+          return new Response(
+            JSON.stringify({
+              error: "No cached prices available.",
+            }),
+            {
+              status: 503,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+        })
+    );
+    return;
+  }
+
+  // Never cache other dynamic app/API data
   if (
     url.pathname.startsWith("/api/") ||
     url.pathname.startsWith("/_next/data/")
@@ -67,6 +101,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Navigation requests: network first, then cache, then offline page
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request)
@@ -96,6 +131,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
+  // Static assets: cache first
   event.respondWith(
     caches.match(request).then((cached) => {
       if (cached) return cached;

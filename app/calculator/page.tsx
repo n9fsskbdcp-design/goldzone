@@ -2,18 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-
-const STORAGE_KEY = "goldzone_cached_prices";
-
-type CachedPrices = {
-  prices: Record<string, number>;
-  updatedAt?: string;
-};
+import { useCachedGoldPrices } from "@/hooks/useCachedGoldPrices";
 
 export default function Calculator() {
-  const [prices, setPrices] = useState<Record<string, number>>({});
-  const [updatedAt, setUpdatedAt] = useState("");
-  const [usingOfflinePrices, setUsingOfflinePrices] = useState(false);
+  const { prices, updatedAt, usingOfflinePrices, loading } =
+    useCachedGoldPrices();
 
   const [weight, setWeight] = useState("");
   const [karat, setKarat] = useState("24");
@@ -22,10 +15,24 @@ export default function Calculator() {
   const [pricePerGram, setPricePerGram] = useState(0);
   const [tierLabel, setTierLabel] = useState("");
 
-  const [loading, setLoading] = useState(true);
-
   const [showInstall, setShowInstall] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isOnline, setIsOnline] = useState(true);
+
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+
+    const goOnline = () => setIsOnline(true);
+    const goOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", goOnline);
+    window.addEventListener("offline", goOffline);
+
+    return () => {
+      window.removeEventListener("online", goOnline);
+      window.removeEventListener("offline", goOffline);
+    };
+  }, []);
 
   useEffect(() => {
     const isStandalone =
@@ -55,60 +62,6 @@ export default function Calculator() {
     await deferredPrompt.userChoice;
     setDeferredPrompt(null);
   };
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadPrices() {
-      try {
-        const res = await fetch("/api/prices", {
-          cache: "no-store",
-        });
-
-        if (!res.ok) throw new Error("Failed to fetch prices");
-
-        const data: CachedPrices = await res.json();
-
-        if (!cancelled) {
-          setPrices(data.prices || {});
-          setUpdatedAt(data.updatedAt || "");
-          setUsingOfflinePrices(false);
-          setLoading(false);
-        }
-
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch {
-        const cached = localStorage.getItem(STORAGE_KEY);
-
-        if (cached) {
-          try {
-            const parsed: CachedPrices = JSON.parse(cached);
-
-            if (!cancelled) {
-              setPrices(parsed.prices || {});
-              setUpdatedAt(parsed.updatedAt || "");
-              setUsingOfflinePrices(true);
-              setLoading(false);
-            }
-
-            return;
-          } catch {
-            // ignore invalid cache
-          }
-        }
-
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    }
-
-    loadPrices();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const handleWeightChange = (value: string) => {
     const cleaned = value.replace(/[^0-9.]/g, "");
@@ -259,11 +212,16 @@ export default function Calculator() {
           </p>
         )}
 
-        {usingOfflinePrices && (
-          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2">
+        {usingOfflinePrices && !isOnline && (
+          <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 space-y-1">
             <p className="text-sm text-amber-800">
-              Offline mode: using your last saved prices. Connect to internet
-              for latest live gold prices.
+              Offline mode: using your last saved prices.
+            </p>
+            <p className="text-sm text-amber-800">
+              The calculator can still be used offline.
+            </p>
+            <p className="text-sm text-amber-800">
+              Connect to internet for latest live gold prices.
             </p>
           </div>
         )}

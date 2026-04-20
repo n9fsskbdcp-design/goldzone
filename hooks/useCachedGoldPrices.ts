@@ -18,7 +18,29 @@ export function useCachedGoldPrices() {
   useEffect(() => {
     let cancelled = false;
 
+    const loadCachedPrices = () => {
+      try {
+        const cached = localStorage.getItem(STORAGE_KEY);
+        if (!cached) return false;
+
+        const parsed: CachedPrices = JSON.parse(cached);
+
+        if (!cancelled) {
+          setPrices(parsed.prices || {});
+          setUpdatedAt(parsed.updatedAt || "");
+          setUsingOfflinePrices(true);
+          setLoading(false);
+        }
+
+        return true;
+      } catch {
+        return false;
+      }
+    };
+
     async function loadPrices() {
+      const hadCachedPrices = loadCachedPrices();
+
       try {
         const res = await fetch("/api/prices", {
           cache: "no-store",
@@ -39,26 +61,7 @@ export function useCachedGoldPrices() {
 
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       } catch {
-        const cached = localStorage.getItem(STORAGE_KEY);
-
-        if (cached) {
-          try {
-            const parsed: CachedPrices = JSON.parse(cached);
-
-            if (!cancelled) {
-              setPrices(parsed.prices || {});
-              setUpdatedAt(parsed.updatedAt || "");
-              setUsingOfflinePrices(true);
-              setLoading(false);
-            }
-
-            return;
-          } catch {
-            // ignore invalid cache
-          }
-        }
-
-        if (!cancelled) {
+        if (!hadCachedPrices && !cancelled) {
           setLoading(false);
         }
       }
@@ -66,8 +69,11 @@ export function useCachedGoldPrices() {
 
     loadPrices();
 
+    const interval = setInterval(loadPrices, 10 * 60 * 1000);
+
     return () => {
       cancelled = true;
+      clearInterval(interval);
     };
   }, []);
 
