@@ -1,4 +1,4 @@
-const CACHE_VERSION = "goldzone-v4";
+const CACHE_VERSION = "goldzone-v5";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const API_CACHE = `${CACHE_VERSION}-api`;
@@ -17,6 +17,8 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS))
   );
+
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -92,7 +94,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Never cache other dynamic app/API data
+  // Never cache other APIs or Next dynamic data
   if (
     url.pathname.startsWith("/api/") ||
     url.pathname.startsWith("/_next/data/")
