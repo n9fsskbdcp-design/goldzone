@@ -69,11 +69,8 @@ export function useCachedGoldPrices() {
 
     loadPrices();
 
-    const interval = setInterval(loadPrices, 10 * 60 * 1000);
-
     return () => {
       cancelled = true;
-      clearInterval(interval);
     };
   }, []);
 

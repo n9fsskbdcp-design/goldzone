@@ -61,7 +61,6 @@ export default function Home() {
   return (
     <>
       <div className="max-w-xl mx-auto px-4 py-8 pb-24 bg-white text-gray-900 rounded-xl">
-        {/* HERO */}
         <section className="mb-6">
           <h1 className="text-2xl sm:text-3xl font-bold mb-3">
             Sell Your Gold with Confidence
@@ -73,7 +72,6 @@ export default function Home() {
           </p>
         </section>
 
-        {/* GOLD PRICE */}
         <section className="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-2">Gold Price Today</h2>
 
@@ -99,17 +97,14 @@ export default function Home() {
             </p>
           )}
 
-          {/* OFFLINE ONLY */}
           {usingOfflinePrices && !isOnline && (
             <div className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 space-y-1">
               <p className="text-sm text-amber-800">
                 Offline mode: using your last saved prices.
               </p>
-
               <p className="text-sm text-amber-800">
                 The calculator can still be used offline.
               </p>
-
               <p className="text-sm text-amber-800">
                 Connect to internet for latest live gold prices.
               </p>
@@ -117,7 +112,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* BUYING PRICES */}
         <section className="bg-white rounded-xl shadow-sm p-5 space-y-3 mb-8 border border-gray-200">
           <h2 className="text-lg font-semibold">Current Buying Prices</h2>
 
@@ -135,7 +129,6 @@ export default function Home() {
                 className="flex justify-between border-b border-gray-200 last:border-b-0 py-2"
               >
                 <span className="font-medium">{karat}K Gold</span>
-
                 <span className="font-semibold">
                   {Number(price).toFixed(2)} XCD / gram
                 </span>
@@ -149,7 +142,6 @@ export default function Home() {
           )}
         </section>
 
-        {/* HOW IT WORKS */}
         <section className="mb-8">
           <h2 className="text-lg font-semibold mb-4">How It Works</h2>
 
@@ -161,11 +153,9 @@ export default function Home() {
               </Link>
               .
             </p>
-
             <p>
               <strong>2.</strong> Submit your gold for evaluation.
             </p>
-
             <p>
               <strong>3.</strong> Receive payment once weight and purity are
               verified.
@@ -173,7 +163,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* MOBILE INSTALL */}
         {showInstall && (
           <section className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-6 lg:hidden">
             <h2 className="text-lg font-semibold mb-2">
@@ -198,7 +187,6 @@ export default function Home() {
                   <strong>Android:</strong> Tap browser menu ⋮ → Add to Home
                   Screen
                 </p>
-
                 <p>
                   <strong>iPhone:</strong> Tap Share → Add to Home Screen
                 </p>
@@ -207,7 +195,6 @@ export default function Home() {
           </section>
         )}
 
-        {/* DESKTOP CTA */}
         <div className="hidden lg:block mt-8">
           <Link
             href="/sell"
@@ -217,7 +204,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* DESKTOP INSTALL */}
         {showInstall && (
           <section className="hidden lg:block bg-gray-50 border border-gray-200 rounded-xl p-5 mt-6">
             <h2 className="text-lg font-semibold mb-2">
@@ -242,7 +228,6 @@ export default function Home() {
                   <strong>Android:</strong> Tap browser menu ⋮ → Add to Home
                   Screen
                 </p>
-
                 <p>
                   <strong>iPhone:</strong> Tap Share → Add to Home Screen
                 </p>
@@ -252,7 +237,6 @@ export default function Home() {
         )}
       </div>
 
-      {/* MOBILE CTA */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 lg:hidden">
         <Link
           href="/sell"

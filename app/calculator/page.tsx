@@ -266,7 +266,6 @@ export default function Calculator() {
                 <strong>Android:</strong> Tap browser menu ⋮ → Add to Home
                 Screen
               </p>
-
               <p>
                 <strong>iPhone:</strong> Tap Share → Add to Home Screen
               </p>

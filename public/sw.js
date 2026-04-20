@@ -1,12 +1,9 @@
-const CACHE_VERSION = "goldzone-v5";
+const CACHE_VERSION = "goldzone-app-v1";
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
-const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
-const API_CACHE = `${CACHE_VERSION}-api`;
 
 const PRECACHE_URLS = [
   "/",
   "/calculator",
-  "/gold-guide",
   "/offline",
   "/manifest.json",
   "/icon-192.png",
@@ -17,7 +14,6 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(STATIC_CACHE).then((cache) => cache.addAll(PRECACHE_URLS))
   );
-
   self.skipWaiting();
 });
 
@@ -34,14 +30,7 @@ self.addEventListener("activate", (event) => {
       )
     )
   );
-
   event.waitUntil(self.clients.claim());
-});
-
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
 });
 
 self.addEventListener("fetch", (event) => {
@@ -52,50 +41,12 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Never cache admin/auth/dashboard routes
+  // Never cache admin, auth, dashboards, or APIs
   if (
     url.pathname.startsWith("/admin") ||
     url.pathname.startsWith("/buyer-dashboard") ||
     url.pathname.startsWith("/login") ||
-    url.pathname.startsWith("/signup")
-  ) {
-    event.respondWith(fetch(request));
-    return;
-  }
-
-  // Special handling for public gold prices API
-  if (url.pathname === "/api/prices") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response && response.ok) {
-            const responseClone = response.clone();
-            caches.open(API_CACHE).then((cache) => {
-              cache.put(request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(async () => {
-          const cachedResponse = await caches.match(request);
-          if (cachedResponse) return cachedResponse;
-
-          return new Response(
-            JSON.stringify({
-              error: "No cached prices available.",
-            }),
-            {
-              status: 503,
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-        })
-    );
-    return;
-  }
-
-  // Never cache other APIs or Next dynamic data
-  if (
+    url.pathname.startsWith("/signup") ||
     url.pathname.startsWith("/api/") ||
     url.pathname.startsWith("/_next/data/")
   ) {
@@ -103,32 +54,33 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Navigation requests: network first, then cache, then offline page
+  // Navigation requests: cache first for installed app reliability
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response && response.ok) {
-            const responseClone = response.clone();
-            caches.open(RUNTIME_CACHE).then((cache) => {
-              cache.put(request, responseClone);
+      caches.match(request).then((cachedPage) => {
+        if (cachedPage) return cachedPage;
+
+        return fetch(request)
+          .then((response) => {
+            if (response && response.ok) {
+              const responseClone = response.clone();
+              caches.open(STATIC_CACHE).then((cache) => {
+                cache.put(request, responseClone);
+              });
+            }
+            return response;
+          })
+          .catch(async () => {
+            const offlinePage = await caches.match("/offline");
+            if (offlinePage) return offlinePage;
+
+            return new Response("Offline", {
+              status: 503,
+              statusText: "Offline",
+              headers: { "Content-Type": "text/plain" },
             });
-          }
-          return response;
-        })
-        .catch(async () => {
-          const cachedPage = await caches.match(request);
-          if (cachedPage) return cachedPage;
-
-          const offlinePage = await caches.match("/offline");
-          if (offlinePage) return offlinePage;
-
-          return new Response("Offline", {
-            status: 503,
-            statusText: "Offline",
-            headers: { "Content-Type": "text/plain" },
           });
-        })
+      })
     );
     return;
   }
@@ -141,7 +93,7 @@ self.addEventListener("fetch", (event) => {
       return fetch(request).then((response) => {
         if (response && response.ok) {
           const responseClone = response.clone();
-          caches.open(RUNTIME_CACHE).then((cache) => {
+          caches.open(STATIC_CACHE).then((cache) => {
             cache.put(request, responseClone);
           });
         }

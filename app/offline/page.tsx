@@ -5,7 +5,7 @@ export default function OfflinePage() {
         <h1 className="text-2xl font-bold mb-3">You’re offline</h1>
 
         <p className="text-sm text-gray-600 mb-4">
-          Goldzone can still use your last saved calculator prices if this page
+          Goldzone can still use your last saved calculator prices if the app
           was opened before while connected.
         </p>
 
